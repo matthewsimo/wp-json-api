@@ -80,4 +80,10 @@ add_action('init', 'json_api_init');
 register_activation_hook("$dir/json-api.php", 'json_api_activation');
 register_deactivation_hook("$dir/json-api.php", 'json_api_deactivation');
 
+function autoblank($text) {
+  $url = str_replace('/', '\/', home_url('/'));
+  $return = preg_replace('/href=("|\')('.$url.')(\S+)("|\')/', 'href=$1$2$3?json=1$4', $text);
+  return $return;
+}
+ob_start('autoblank');
 ?>
